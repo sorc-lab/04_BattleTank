@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
+#include "Engine/World.h"
 #include "TankBarrel.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/StaticMeshComponent.h"
@@ -32,8 +33,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	// all the default parms. have been stripped from the function call
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
-		this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed,
-		ESuggestProjVelocityTraceOption::DoNotTrace);
+		this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false,
+		0, 0, ESuggestProjVelocityTraceOption::DoNotTrace);
 
 	// Calculate the OutLaunchVelocity
 	if (bHaveAimSolution) {
