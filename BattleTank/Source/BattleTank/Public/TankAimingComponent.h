@@ -8,6 +8,7 @@
 
 class UTankBarrel;
 
+// Holds barrel's properties and methods
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
