@@ -22,6 +22,6 @@ void ATankAIController::Tick(float DeltaTime)
 		// TODO: Move towards the player
 		
 		ControlledTank->AimAt(PlayerTank->GetActorLocation());
-		ControlledTank->Fire(); // TODO: Limit firing rate
+		//ControlledTank->Fire(); // Temporarily disabling AI fire for testing
 	}
 }
