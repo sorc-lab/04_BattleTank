@@ -22,6 +22,6 @@ void ATankAIController::Tick(float DeltaTime)
 		MoveToActor(PlayerTank, AcceptanceRadius); // TODO: Check radius is in cm
 		
 		ControlledTank->AimAt(PlayerTank->GetActorLocation());
-		//ControlledTank->Fire(); // Temporarily disabling AI fire for testing
+		ControlledTank->Fire();
 	}
 }
