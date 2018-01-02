@@ -31,6 +31,8 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	// No need to call Super since we're replacing the functionality
 
 	/** NOTES */
+	// A* Search: https://en.wikipedia.org/wiki/A*_search_algorithm
+	//
 	// AI Tank will start w/ X axis facing the player tank
 	// It will move forward @ +1 until it reaches a 90 degree angle w/ player tank
 	// AI Tank will stop moving forward because it will be facing the player tank
@@ -55,6 +57,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
 	IntendMoveForward(ForwardThrow);
 
+	// TODO: Document CrossProduct function
 	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
 	IntendTurnRight(RightThrow);
 }

@@ -38,6 +38,8 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay(); // needed for BP Begin Play to run
+	auto TankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("01022018: %s ATank::BeginPlay called"), *TankName);
 }
 
 void ATank::AimAt(FVector HitLocation)
