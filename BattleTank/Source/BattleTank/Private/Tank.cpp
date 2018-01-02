@@ -27,12 +27,21 @@ void ATank::Fire()
 // Sets default values (CONSTRUCTOR)
 ATank::ATank()
 {
+	auto TankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("01022018: ATank: %s constructed"), *TankName);
+
  	// Set this pawn to call Tick() every frame.
 	// You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void ATank::BeginPlay()
+{
+	Super::BeginPlay(); // needed for BP Begin Play to run
+}
+
 void ATank::AimAt(FVector HitLocation)
 {
+	if (!TankAimingComponent) { return; }
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
