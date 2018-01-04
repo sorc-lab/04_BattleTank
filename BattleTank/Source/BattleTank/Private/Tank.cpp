@@ -11,8 +11,9 @@
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel)) { return; }
 	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (Barrel && bIsReloaded) {
+	if (bIsReloaded) {
 		// spawn a projectile at the socket location on barrel
 		// 'T *UWorld::SpawnActor<AProjectile>(UClass*,const FVector&,const FRotator&,const FActorSpawnParameters&)'
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
