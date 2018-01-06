@@ -24,7 +24,13 @@ public:
 	void IntendMoveForward(float Throw);
 
 	UFUNCTION(BlueprintCallable, Category = "Input")
+	void IntendMoveBackward(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void IntendTurnRight(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void IntendTurnLeft(float Throw);
 
 private:
 	UTankTrack* LeftTrack = nullptr;
