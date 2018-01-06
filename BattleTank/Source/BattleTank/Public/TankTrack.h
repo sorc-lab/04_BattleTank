@@ -25,9 +25,7 @@ public:
 
 private:
 	UTankTrack();
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
-		FActorComponentTickFunction* ThisTickFunction) override;
-
+	void ApplySidewaysForce();
 	virtual void BeginPlay() override;
 
 	UFUNCTION()

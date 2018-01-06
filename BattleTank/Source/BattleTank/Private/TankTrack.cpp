@@ -5,7 +5,7 @@
 
 UTankTrack::UTankTrack()
 {
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 }
 
 void UTankTrack::BeginPlay()
@@ -14,9 +14,10 @@ void UTankTrack::BeginPlay()
 	OnComponentHit.AddDynamic(this, &UTankTrack::OnHit);
 }
 
-void UTankTrack::TickComponent(float DeltaTime, ELevelTick TickType,
-	FActorComponentTickFunction* ThisTickFunction)
+void UTankTrack::ApplySidewaysForce()
 {
+	auto DeltaTime = GetWorld()->GetDeltaSeconds();
+
 	/** NOTES ==================================================================== */
 	// FIND THE SLIPPAGE SPEED
 	// - The component of speed in the tank right direction
@@ -32,7 +33,7 @@ void UTankTrack::TickComponent(float DeltaTime, ELevelTick TickType,
 	/** ========================================================================== */
 
 	auto SlippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
-	
+
 	// work-out the required acceleration this frame to correct (applied in the
 	// opposite direction)
 	auto CorrectionAcceleration = -SlippageSpeed / DeltaTime * GetRightVector();
@@ -51,7 +52,8 @@ void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, FVector NormalImpulse,
 	const FHitResult& Hit)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("I'm hit!"));
+	// Drive tracks
+	ApplySidewaysForce();
 }
 
 void UTankTrack::SetThrottle(float Throttle)
