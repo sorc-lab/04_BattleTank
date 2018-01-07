@@ -16,8 +16,8 @@ class BATTLETANK_API ATankAIController : public AAIController
 
 protected:
 	// how close the AI can get to the player when moving
-	UPROPERTY(EditAnywhere, Category = "Setup") // consider EditDefaultsOnly
-	float AcceptanceRadius = 3000;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float AcceptanceRadius = 8000;
 
 private:
 	virtual void BeginPlay() override;
