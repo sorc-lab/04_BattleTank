@@ -8,17 +8,27 @@
 // Sets default values
 AProjectile::AProjectile()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
-	CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Collision Mesh"));
+	CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>
+		(FName("Collision Mesh"));
 	SetRootComponent(CollisionMesh);
 	CollisionMesh->SetNotifyRigidBodyCollision(true);
 	CollisionMesh->SetVisibility(true);
 	
-	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
-	LaunchBlast->AttachTo(RootComponent);
+	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>
+		(FName("Launch Blast"));
+	LaunchBlast->AttachToComponent(RootComponent,
+		FAttachmentTransformRules::KeepRelativeTransform);
 
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement"));
+	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>
+		(FName("Impact Blast"));
+	ImpactBlast->AttachToComponent(RootComponent,
+		FAttachmentTransformRules::KeepRelativeTransform);
+	ImpactBlast->bAutoActivate = false;
+
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>
+		(FName("Projectile Movement"));
 	ProjectileMovement->bAutoActivate = false;
 }
 
@@ -26,12 +36,6 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-}
-
-// Called every frame
-void AProjectile::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 }
 
 void AProjectile::LaunchProjectile(float Speed)
