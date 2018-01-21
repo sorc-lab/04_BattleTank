@@ -34,6 +34,8 @@ AProjectile::AProjectile()
 
 	ExplosionForce = CreateDefaultSubobject<URadialForceComponent>
 		(FName("Explosion Force"));
+	ExplosionForce->AttachToComponent(RootComponent,
+		FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 // Called when the game starts or when spawned
