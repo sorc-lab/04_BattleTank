@@ -3,6 +3,7 @@
 #include "Projectile.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
+#include "Public/TimerManager.h"
 #include "Engine/World.h"
 
 
@@ -60,4 +61,17 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
+
+	SetRootComponent(ImpactBlast);
+	CollisionMesh->DestroyComponent();
+
+	// World->GetTimerManager().SetTimer(SampleTimerHandle, this, &AMyCharacter::SampleTimerExpired, 10.0f);
+	FTimerHandle Timer;
+	GetWorld()->GetTimerManager().SetTimer(Timer, this,
+		&AProjectile::OnTimerExpire, DestroyDelay, false);
+}
+
+void AProjectile::OnTimerExpire()
+{
+	Destroy();
 }
