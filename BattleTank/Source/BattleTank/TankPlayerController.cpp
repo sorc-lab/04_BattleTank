@@ -17,17 +17,16 @@ void ATankPlayerController::BeginPlay()
 	FoundAimingComponent(AimingComponent);
 }
 
-void ATankPlayerController::SetPawn(APawn * InPawn)
+void ATankPlayerController::SetPawn(APawn* InPawn)
 {
 	Super::SetPawn(InPawn);
-	auto PlayerTank = Cast<ATank>(InPawn);
-	if (!ensure(PlayerTank)) { return; }
-	PlayerTank
-		->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPlayerTankDeath);
+	auto PossessedTank = Cast<ATank>(InPawn);
+	if (!ensure(PossessedTank)) { return; }
+	PossessedTank
+		->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossessedTankDeath);
 }
 
-
-void ATankPlayerController::OnPlayerTankDeath()
+void ATankPlayerController::OnPossessedTankDeath()
 {
 	StartSpectatingOnly();
 }
