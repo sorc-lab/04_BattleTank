@@ -6,8 +6,6 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDeath);
-
 /**
  * 
  */

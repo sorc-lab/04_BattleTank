@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/Engine.h"
+#include "Tank.h"
 #include "BattleTank.h"
 
 void ATankPlayerController::BeginPlay()
@@ -14,6 +15,21 @@ void ATankPlayerController::BeginPlay()
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 	FoundAimingComponent(AimingComponent);
+}
+
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+	auto PlayerTank = Cast<ATank>(InPawn);
+	if (!ensure(PlayerTank)) { return; }
+	PlayerTank
+		->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPlayerTankDeath);
+}
+
+
+void ATankPlayerController::OnPlayerTankDeath()
+{
+	StartSpectatingOnly();
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
