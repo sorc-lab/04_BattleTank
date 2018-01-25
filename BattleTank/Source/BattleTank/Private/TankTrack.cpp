@@ -60,12 +60,6 @@ void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 void UTankTrack::SetThrottle(float Throttle)
 {
 	CurrentThrottle = FMath::Clamp<float>(CurrentThrottle + Throttle, -1, 1);
-
-	// code needs to be placed back in DriveTrack
-	/*auto ForceApplied = GetForwardVector()*Throttle*TrackMaxDrivingForce;
-	auto ForceLocation = GetComponentLocation();
-	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
-	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);*/
 }
 
 void UTankTrack::DriveTrack()
